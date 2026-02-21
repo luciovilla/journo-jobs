@@ -25,6 +25,14 @@ export function Footer() {
           <Link className="hover:text-(--ink)" href="/about">
             About
           </Link>
+          <a
+            className="hover:text-(--ink)"
+            href="https://github.com/luciovilla/journo-jobs"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            GitHub
+          </a>
         </nav>
       </div>
     </footer>

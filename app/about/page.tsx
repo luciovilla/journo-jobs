@@ -56,6 +56,20 @@ export default function AboutPage() {
               </p>
 
               <p>
+                This site is open-source. If you're a software engineer and
+                want to contribute, pull requests are welcome on{" "}
+                <a
+                  className="text-(--brand) underline underline-offset-2"
+                  href="https://github.com/luciovilla/journo-jobs"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  GitHub
+                </a>
+                .
+              </p>
+
+              <p>
                 Find me over at{" "}
                 <a
                   className="text-(--brand) underline underline-offset-2"
