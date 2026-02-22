@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
 
+import { Analytics } from "@vercel/analytics/next";
+
 import { Footer } from "./components/Footer";
 import { SiteNav } from "./components/SiteNav";
 
@@ -45,6 +47,7 @@ export default function RootLayout({
         <SiteNav />
         {children}
         <Footer />
+        <Analytics />
       </body>
     </html>
   );
