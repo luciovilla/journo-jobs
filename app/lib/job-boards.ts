@@ -40,6 +40,10 @@ export const JOB_BOARDS = [
     url: "https://myworkdaycenter.wd5.myworkdayjobs.com/MNG",
   },
   {
+    name: "NBCUniversal (NBC News, Telemundo...)",
+    url: "https://myworkdaycenter.wd5.myworkdayjobs.com/MNG",
+  },
+  {
     name: "More Perfect Union",
     url: "https://more-perfect-union-action.rippling-ats.com/",
   },
