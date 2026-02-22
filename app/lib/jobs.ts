@@ -1,3 +1,25 @@
+import { MOCK_JOBS } from "@/app/api/jobs/mock";
+
+export async function fetchRawJobs(): Promise<unknown> {
+  const endpoint = process.env.N8N_JOBS_ENDPOINT;
+  const authHeaderName = process.env.N8N_AUTH_HEADER_NAME;
+  const authHeaderValue = process.env.N8N_AUTH_HEADER_VALUE;
+
+  if (!endpoint || !authHeaderName || !authHeaderValue) {
+    return MOCK_JOBS;
+  }
+
+  const upstream = await fetch(endpoint, {
+    headers: { [authHeaderName]: authHeaderValue },
+  });
+
+  if (!upstream.ok) {
+    throw new Error(`Jobs feed returned ${upstream.status}`);
+  }
+
+  return upstream.json();
+}
+
 export type RawJob = {
   id?: number | string | null;
   url?: string | null;
