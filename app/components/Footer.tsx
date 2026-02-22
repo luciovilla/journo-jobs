@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export const Footer = () => {
   return (
-    <footer className="border-t border-(--line) px-6 py-8 md:px-10">
+    <footer className="border-t border-(--line) px-6 py-8 md:px-10 bg-white">
       <div className="mx-auto max-w-6xl flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between text-sm text-(--muted)">
         <p>
           Built by{" "}
@@ -29,4 +29,4 @@ export const Footer = () => {
       </div>
     </footer>
   );
-}
+};

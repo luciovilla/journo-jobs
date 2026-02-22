@@ -3,9 +3,10 @@ import { type NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {
   const secret = process.env.REVALIDATE_SECRET;
-  const param = request.nextUrl.searchParams.get("secret");
+  const authHeader = request.headers.get("authorization");
+  const token = authHeader?.startsWith("Bearer ") ? authHeader.slice(7) : null;
 
-  if (!secret || param !== secret) {
+  if (!secret || token !== secret) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 

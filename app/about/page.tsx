@@ -1,6 +1,13 @@
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "About — Journalism Jobs",
+  description: "About this journalism jobs aggregator.",
+};
+
 export default function AboutPage() {
   return (
-    <div className="min-h-screen bg-white text-(--ink)">
+    <div className="min-h-svh">
       <main className="mx-auto w-full max-w-4xl px-6 pb-16 md:px-10">
         <section className="md:p-10">
           <h1 className="text-4xl font-semibold tracking-tight md:text-5xl">

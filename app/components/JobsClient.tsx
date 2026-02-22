@@ -4,10 +4,10 @@ import { useEffect, useRef, useState } from "react";
 
 import { useJobFilters } from "@/hooks/useJobFilters";
 import type { Job } from "@/lib/jobs";
-import { HeroStats } from "./HeroStats";
 import { JobFilters } from "./JobFilters";
 import { JobList } from "./JobList";
 import { ScrollToTop } from "./ScrollToTop";
+import { Topper } from "./Topper";
 
 export const JobsClient = ({ initialJobs }: { initialJobs: Job[] }) => {
   const {
@@ -19,11 +19,11 @@ export const JobsClient = ({ initialJobs }: { initialJobs: Job[] }) => {
     visibleCount,
     setVisibleCount,
     filteredJobs,
-    companyOptions,
     locationOptions,
     companyStats,
     lastFetched,
     handleCompanyChange,
+    clearFilters,
   } = useJobFilters(initialJobs);
 
   const filtersRef = useRef<HTMLDivElement>(null);
@@ -43,34 +43,21 @@ export const JobsClient = ({ initialJobs }: { initialJobs: Job[] }) => {
     return () => observer.disconnect();
   }, []);
 
-  const handleCompanyClick = (company: string) => {
-    handleCompanyChange(company);
-    setTimeout(
-      () => filtersRef.current?.scrollIntoView({ behavior: "smooth" }),
-      0,
-    );
-  }
-
   return (
     <>
-      <main className="mx-auto w-full max-w-6xl pb-8">
-        <HeroStats
-          companyStats={companyStats}
-          lastFetched={lastFetched}
-          onCompanyClick={handleCompanyClick}
-          totalJobs={initialJobs.length}
-        />
-      </main>
-
-      <div className="bg-gray-50 py-4 px-6 md:px-10">
-        <div ref={filtersRef}>
+      <Topper lastFetched={lastFetched} />
+      <div className="py-4 px-6 md:px-10 min-h-svh">
+        <div ref={filtersRef} tabIndex={-1}>
           <JobFilters
             companyFilter={companyFilter}
-            companyOptions={companyOptions}
-            filteredCount={filteredJobs.length}
+            companyStats={companyStats}
             locationFilter={locationFilter}
             locationOptions={locationOptions}
-            onCompanyChange={handleCompanyChange}
+            onClearFilters={clearFilters}
+            onCompanyStatClick={(c) => {
+              handleCompanyChange(c === companyFilter ? "" : c);
+              filtersRef.current?.scrollIntoView({ behavior: "smooth" });
+            }}
             onLocationChange={(v) => {
               setLocationFilter(v);
               setVisibleCount(20);
@@ -84,19 +71,21 @@ export const JobsClient = ({ initialJobs }: { initialJobs: Job[] }) => {
         </div>
 
         <JobList
+          filteredCount={filteredJobs.length}
           hasMore={visibleCount < filteredJobs.length}
           jobs={filteredJobs.slice(0, visibleCount)}
           onLoadMore={() => setVisibleCount((n) => n + 20)}
           remaining={filteredJobs.length - visibleCount}
+          totalJobs={initialJobs.length}
         />
       </div>
 
       <ScrollToTop
-        onClick={() =>
-          filtersRef.current?.scrollIntoView({ behavior: "smooth" })
-        }
+        onClick={() => {
+          filtersRef.current?.scrollIntoView();
+        }}
         show={showScrollTop}
       />
     </>
   );
-}
+};

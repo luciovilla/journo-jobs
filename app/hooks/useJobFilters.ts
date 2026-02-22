@@ -2,12 +2,8 @@
 
 import { useEffect, useMemo, useState } from "react";
 
-import { COMPANY_ALIASES, COMPANY_SLUGS } from "@/lib/company-constants";
-import {
-  type Job,
-  canonicalizeLocation,
-  getCompanyStats,
-} from "@/lib/jobs";
+import { COMPANY_ALIASES, COMPANY_SLUGS } from "@/lib/companies";
+import { type Job, getCompanyStats } from "@/lib/jobs";
 
 export function useJobFilters(jobs: Job[]) {
   const [titleFilter, setTitleFilter] = useState("");
@@ -59,29 +55,19 @@ export function useJobFilters(jobs: Job[]) {
 
   const filteredJobs = useMemo(
     () =>
-      jobs
-        .filter((job) => {
-          const titleMatch = job.title
-            .toLowerCase()
-            .includes(titleFilter.toLowerCase().trim());
-          const companyMatch = companyFilter
-            ? job.company === companyFilter
-            : true;
-          const locationMatch = locationFilter
-            ? canonicalizeLocation(job.location) === locationFilter
-            : true;
+      jobs.filter((job) => {
+        const titleMatch = job.title
+          .toLowerCase()
+          .includes(titleFilter.toLowerCase().trim());
+        const companyMatch = companyFilter
+          ? job.company === companyFilter
+          : true;
+        const locationMatch = locationFilter
+          ? job.canonicalLocation === locationFilter
+          : true;
 
-          return titleMatch && companyMatch && locationMatch;
-        })
-        .sort((a, b) => {
-          const aTime = Date.parse(a.updatedAt || a.firstPublished || "");
-          const bTime = Date.parse(b.updatedAt || b.firstPublished || "");
-
-          const aValue = Number.isNaN(aTime) ? 0 : aTime;
-          const bValue = Number.isNaN(bTime) ? 0 : bTime;
-
-          return bValue - aValue;
-        }),
+        return titleMatch && companyMatch && locationMatch;
+      }),
     [jobs, titleFilter, companyFilter, locationFilter],
   );
 
@@ -91,7 +77,7 @@ export function useJobFilters(jobs: Job[]) {
         ...new Set(
           jobs
             .filter((job) => !companyFilter || job.company === companyFilter)
-            .map((job) => canonicalizeLocation(job.location)),
+            .map((job) => job.canonicalLocation),
         ),
       ]
         .filter(Boolean)
@@ -117,6 +103,15 @@ export function useJobFilters(jobs: Job[]) {
     }).format(new Date(t));
   }, [jobs]);
 
+  function clearFilters() {
+    setTitleFilter("");
+    setCompanyFilter("");
+    setLocationFilter("");
+    setVisibleCount(20);
+    const url = window.location.pathname;
+    window.history.replaceState(null, "", url);
+  }
+
   return {
     titleFilter,
     setTitleFilter,
@@ -131,5 +126,6 @@ export function useJobFilters(jobs: Job[]) {
     companyStats,
     lastFetched,
     handleCompanyChange,
+    clearFilters,
   };
 }

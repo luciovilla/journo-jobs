@@ -11,7 +11,9 @@ export const LoadMoreButton = ({
       onClick={onLoadMore}
       type="button"
     >
-      Load 20 more ({remaining} remaining)
+      {(remaining ?? 0) < 20
+        ? `Load ${remaining ?? 0} more`
+        : `Load 20 more (${remaining ?? 0} remaining)`}
     </button>
   );
 };

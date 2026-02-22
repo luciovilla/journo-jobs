@@ -11,6 +11,7 @@ export async function fetchRawJobs(): Promise<unknown> {
 
   const upstream = await fetch(endpoint, {
     headers: { [authHeaderName]: authHeaderValue },
+    signal: AbortSignal.timeout(10_000),
   });
 
   if (!upstream.ok) {
@@ -38,6 +39,7 @@ export type Job = {
   title: string;
   company: string;
   location: string;
+  canonicalLocation: string;
   url: string;
   updatedAt?: string | null;
   firstPublished?: string;
@@ -140,6 +142,7 @@ function normalizeJob(raw: RawJob, index: number): Job {
     title,
     company,
     location,
+    canonicalLocation: canonicalizeLocation(location),
     url,
     updatedAt,
     firstPublished,
@@ -225,11 +228,23 @@ export function canonicalizeLocation(location: string): string {
     return "New York";
   }
 
+  if (normalized.includes("atlanta")) {
+    return "Atlanta, GA";
+  }
+
   return location.trim() || "Location not listed";
 }
 
 export function parseJobs(payload: unknown): Job[] {
-  return toArray(payload).map(normalizeJob);
+  return toArray(payload)
+    .map(normalizeJob)
+    .sort((a, b) => {
+      const aTime = Date.parse(a.updatedAt || a.firstPublished || "");
+      const bTime = Date.parse(b.updatedAt || b.firstPublished || "");
+      const aValue = Number.isNaN(aTime) ? 0 : aTime;
+      const bValue = Number.isNaN(bTime) ? 0 : bTime;
+      return bValue - aValue;
+    });
 }
 
 export function getCompanyStats(

@@ -1,8 +1,15 @@
+import type { Metadata } from "next";
+
 import { JOB_BOARDS } from "@/lib/job-boards";
+
+export const metadata: Metadata = {
+  title: "Job Boards — Journalism Jobs",
+  description: "Journalism job boards worth bookmarking.",
+};
 
 export default function JobBoardsPage() {
   return (
-    <div className="min-h-screen bg-white text-(--ink)">
+    <div className="text-(--ink)">
       <main className="mx-auto w-full max-w-4xl px-6 pb-16 md:px-10">
         <section className="md:p-10">
           <h1 className="text-4xl font-semibold tracking-tight md:text-5xl">
