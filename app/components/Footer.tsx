@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-export function Footer() {
+export const Footer = () => {
   return (
     <footer className="border-t border-(--line) px-6 py-8 md:px-10">
       <div className="mx-auto max-w-6xl flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between text-sm text-(--muted)">
@@ -20,19 +20,11 @@ export function Footer() {
             Jobs
           </Link>
           <Link className="hover:text-(--ink)" href="/job-boards">
-            Job Boards
+            More Sources
           </Link>
           <Link className="hover:text-(--ink)" href="/about">
             About
           </Link>
-          <a
-            className="hover:text-(--ink)"
-            href="https://github.com/luciovilla/journo-jobs"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            GitHub
-          </a>
         </nav>
       </div>
     </footer>

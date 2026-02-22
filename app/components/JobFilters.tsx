@@ -10,7 +10,7 @@ type JobFiltersProps = {
   onLocationChange: (value: string) => void;
 };
 
-export function JobFilters({
+export const JobFilters = ({
   titleFilter,
   companyFilter,
   locationFilter,
@@ -20,7 +20,7 @@ export function JobFilters({
   onTitleChange,
   onCompanyChange,
   onLocationChange,
-}: JobFiltersProps) {
+}: JobFiltersProps) => {
   return (
     <section className="mx-auto -mt-20 max-w-4xl rounded-3xl border border-(--line) bg-white p-5 md:p-6">
       <div className="grid gap-3 md:grid-cols-3">

@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-import { fetchRawJobs } from "@/app/lib/jobs";
+import { fetchRawJobs } from "@/lib/jobs";
 
 export async function GET() {
   try {

@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-export function SiteNav() {
+export const SiteNav = () => {
   return (
     <div className="mx-auto w-full max-w-6xl">
       <header className="flex justify-end items-center px-6 py-8 md:px-10">

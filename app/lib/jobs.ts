@@ -1,4 +1,4 @@
-import { MOCK_JOBS } from "@/app/api/jobs/mock";
+import { MOCK_JOBS } from "@/api/jobs/mock";
 
 export async function fetchRawJobs(): Promise<unknown> {
   const endpoint = process.env.N8N_JOBS_ENDPOINT;
