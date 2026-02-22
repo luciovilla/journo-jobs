@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import "./globals.css";
 
+import { Footer } from "./components/Footer";
+import { SiteNav } from "./components/SiteNav";
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://jobs.luciovilla.com"),
   title: "Journalism Jobs",
@@ -38,7 +41,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="antialiased">{children}</body>
+      <body className="antialiased">
+        <SiteNav />
+        {children}
+        <Footer />
+      </body>
     </html>
   );
 }

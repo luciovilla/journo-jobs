@@ -1,7 +1,3 @@
-import Link from "next/link";
-
-import { Footer } from "../components/Footer";
-
 const JOB_BOARDS = [
   {
     name: "Axios",
@@ -81,23 +77,6 @@ export default function JobBoardsPage() {
   return (
     <div className="min-h-screen bg-white text-(--ink)">
       <main className="mx-auto w-full max-w-4xl px-6 pb-16 md:px-10">
-        <header className="flex items-center justify-between py-8">
-          <Link
-            className="text-sm font-semibold uppercase tracking-[0.16em] text-(--brand)"
-            href="/"
-          >
-            Journalism Jobs
-          </Link>
-          <nav className="flex items-center gap-6 text-sm font-medium text-(--muted)">
-            <Link className="text-(--ink)" href="/job-boards">
-              Job Boards
-            </Link>
-            <Link className="hover:text-(--ink)" href="/about">
-              About
-            </Link>
-          </nav>
-        </header>
-
         <section className="md:p-10">
           <h1 className="text-4xl font-semibold tracking-tight md:text-5xl">
             Job Boards
@@ -140,7 +119,6 @@ export default function JobBoardsPage() {
           </ul>
         </section>
       </main>
-      <Footer />
     </div>
   );
 }
