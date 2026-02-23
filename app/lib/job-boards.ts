@@ -68,6 +68,14 @@ export const JOB_BOARDS = [
     url: "https://job-boards.greenhouse.io/semafor/",
   },
   {
+    name: "Simons Foundation (Quanta Magazine, The Transmitter...)",
+    url: "https://simonsfoundation.wd1.myworkdayjobs.com/en-US/simonsfoundationcareers",
+  },
+  {
+    name: "TIME",
+    url: "https://recruiting.ultipro.com/TIM1008TIUS/JobBoard/fd1a98f2-b18b-4d7c-98a2-bc7a3a4e9027/",
+  },
+  {
     name: "Warner Bros. Discovery (CNN, Bleacher Report)",
     url: "https://careers.wbd.com/global/en/search-results",
   },

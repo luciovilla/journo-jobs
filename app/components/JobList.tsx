@@ -4,7 +4,6 @@ import { LoadMoreButton } from "./LoadMoreButton";
 
 type JobListProps = {
   jobs: Job[];
-  totalJobs: number;
   filteredCount: number;
   hasMore?: boolean;
   remaining?: number;
@@ -13,7 +12,6 @@ type JobListProps = {
 
 export const JobList = ({
   jobs,
-  totalJobs,
   filteredCount,
   hasMore,
   remaining,
@@ -23,7 +21,7 @@ export const JobList = ({
     <section id="jobs">
       <div className="mx-auto max-w-2xl space-y-10 pt-10 pb-20">
         <p className="text-sm w-full text-center text-(--muted)">
-          Showing {filteredCount} of {totalJobs} jobs
+          Showing {filteredCount} jobs
         </p>
         {jobs.length === 0 && (
           <div className="rounded-2xl border border-(--line) bg-white p-6 text-sm text-(--muted)">

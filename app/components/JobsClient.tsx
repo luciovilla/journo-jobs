@@ -76,7 +76,6 @@ export const JobsClient = ({ initialJobs }: { initialJobs: Job[] }) => {
           jobs={filteredJobs.slice(0, visibleCount)}
           onLoadMore={() => setVisibleCount((n) => n + 20)}
           remaining={filteredJobs.length - visibleCount}
-          totalJobs={initialJobs.length}
         />
       </div>
 

@@ -81,7 +81,13 @@ export function useJobFilters(jobs: Job[]) {
         ),
       ]
         .filter(Boolean)
-        .sort((a, b) => a.localeCompare(b)),
+        .sort((a, b) => {
+          const tail = new Set(["Remote", "Location not listed"]);
+          const aLast = tail.has(a) || a.toLowerCase().includes("location");
+          const bLast = tail.has(b) || b.toLowerCase().includes("location");
+          if (aLast !== bLast) return aLast ? 1 : -1;
+          return a.localeCompare(b);
+        }),
     [jobs, companyFilter],
   );
 

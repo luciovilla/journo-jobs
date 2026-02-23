@@ -1,3 +1,7 @@
+"use client";
+
+import { useState } from "react";
+
 type CompanyStat = {
   company: string;
   count: number;
@@ -26,8 +30,12 @@ export const JobFilters = ({
   onCompanyStatClick,
   onClearFilters,
 }: JobFiltersProps) => {
+  const [showAllCompanies, setShowAllCompanies] = useState(false);
   const hasFilters =
     titleFilter !== "" || companyFilter !== "" || locationFilter !== "";
+
+  const visibleStats = showAllCompanies ? companyStats : companyStats.slice(0, 10);
+  const hasMore = companyStats.length > 10;
 
   return (
     <section className="mx-auto max-w-4xl rounded-3xl border border-(--line) bg-white p-5 md:p-6">
@@ -63,8 +71,8 @@ export const JobFilters = ({
         </label>
       </div>
 
-      <div className="mt-4 flex flex-wrap gap-2">
-        {companyStats.map(({ company, count }) => {
+      <div className="mt-4 flex flex-wrap gap-2 items-center">
+        {visibleStats.map(({ company, count }) => {
           const isActive = companyFilter === company;
           return (
             <button
@@ -81,6 +89,15 @@ export const JobFilters = ({
             </button>
           );
         })}
+        {hasMore && (
+          <button
+            className="text-xs text-(--muted) hover:text-(--brand) hover:underline cursor-pointer transition"
+            onClick={() => setShowAllCompanies((v) => !v)}
+            type="button"
+          >
+            {showAllCompanies ? "Show less" : `+${companyStats.length - 10} more`}
+          </button>
+        )}
       </div>
 
       {hasFilters && (
