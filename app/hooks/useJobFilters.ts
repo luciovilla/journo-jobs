@@ -109,15 +109,6 @@ export function useJobFilters(jobs: Job[]) {
     }).format(new Date(t));
   }, [jobs]);
 
-  function clearFilters() {
-    setTitleFilter("");
-    setCompanyFilter("");
-    setLocationFilter("");
-    setVisibleCount(20);
-    const url = window.location.pathname;
-    window.history.replaceState(null, "", url);
-  }
-
   return {
     titleFilter,
     setTitleFilter,
@@ -132,6 +123,5 @@ export function useJobFilters(jobs: Job[]) {
     companyStats,
     lastFetched,
     handleCompanyChange,
-    clearFilters,
   };
 }

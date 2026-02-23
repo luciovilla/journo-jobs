@@ -23,7 +23,6 @@ export const JobsClient = ({ initialJobs }: { initialJobs: Job[] }) => {
     companyStats,
     lastFetched,
     handleCompanyChange,
-    clearFilters,
   } = useJobFilters(initialJobs);
 
   const filtersRef = useRef<HTMLDivElement>(null);
@@ -45,7 +44,14 @@ export const JobsClient = ({ initialJobs }: { initialJobs: Job[] }) => {
 
   return (
     <>
-      <Topper lastFetched={lastFetched} />
+      <Topper
+        companyCount={companyStats.length}
+        jobCount={initialJobs.length}
+        lastFetched={lastFetched}
+        onScrollToFilters={() =>
+          filtersRef.current?.scrollIntoView({ behavior: "smooth" })
+        }
+      />
       <div className="py-4 px-6 md:px-10 min-h-svh">
         <div ref={filtersRef} tabIndex={-1}>
           <JobFilters
@@ -53,7 +59,6 @@ export const JobsClient = ({ initialJobs }: { initialJobs: Job[] }) => {
             companyStats={companyStats}
             locationFilter={locationFilter}
             locationOptions={locationOptions}
-            onClearFilters={clearFilters}
             onCompanyStatClick={(c) => {
               handleCompanyChange(c === companyFilter ? "" : c);
               filtersRef.current?.scrollIntoView({ behavior: "smooth" });

@@ -21,7 +21,7 @@ export const JobList = ({
     <section id="jobs">
       <div className="mx-auto max-w-2xl space-y-10 pt-10 pb-20">
         <p className="text-sm w-full text-center text-(--muted)">
-          Showing {filteredCount} jobs
+          {filteredCount} jobs
         </p>
         {jobs.length === 0 && (
           <div className="rounded-2xl border border-(--line) bg-white p-6 text-sm text-(--muted)">
