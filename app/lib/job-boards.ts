@@ -32,6 +32,10 @@ export const JOB_BOARDS = [
     url: "https://condenast.wd5.myworkdayjobs.com/CondeCareers?locationCountry=bc33aa3152ec42d4995f4791a106ed09",
   },
   {
+    name: "Disney (ESPN, ABC, Marvel...)",
+    url: "https://www.disneycareers.com/en/search-jobs/",
+  },
+  {
     name: "Gannett",
     url: "https://jobs.dayforcehcm.com/en-US/gannett/CANDIDATEPORTAL",
   },
