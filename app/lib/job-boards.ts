@@ -1,5 +1,9 @@
 export const JOB_BOARDS = [
   {
+    name: "Associated Press",
+    url: "https://careers.ap.org/go/View-All-Jobs/4304700/",
+  },
+  {
     name: "Axios",
     url: "https://job-boards.greenhouse.io/axios",
   },
