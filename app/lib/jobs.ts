@@ -247,6 +247,16 @@ export function parseJobs(payload: unknown): Job[] {
     });
 }
 
+export const NEW_JOB_DAYS = 7;
+
+export function isNewJob(job: Job): boolean {
+  const date = job.firstPublished ?? job.updatedAt;
+  if (!date) return false;
+  const t = Date.parse(date);
+  if (Number.isNaN(t)) return false;
+  return Date.now() - t < NEW_JOB_DAYS * 24 * 60 * 60 * 1000;
+}
+
 export function getCompanyStats(
   jobs: Job[],
 ): Array<{ company: string; count: number }> {

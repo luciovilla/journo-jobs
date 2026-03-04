@@ -3,12 +3,13 @@
 import { useEffect, useMemo, useState } from "react";
 
 import { COMPANY_ALIASES, COMPANY_SLUGS } from "@/lib/companies";
-import { type Job, getCompanyStats } from "@/lib/jobs";
+import { type Job, getCompanyStats, isNewJob } from "@/lib/jobs";
 
 export function useJobFilters(jobs: Job[]) {
   const [titleFilter, setTitleFilter] = useState("");
   const [companyFilter, setCompanyFilter] = useState("");
   const [locationFilter, setLocationFilter] = useState("");
+  const [newOnlyFilter, setNewOnlyFilter] = useState(false);
   const [pendingCompany, setPendingCompany] = useState("");
   const [visibleCount, setVisibleCount] = useState(20);
 
@@ -66,9 +67,9 @@ export function useJobFilters(jobs: Job[]) {
           ? job.canonicalLocation === locationFilter
           : true;
 
-        return titleMatch && companyMatch && locationMatch;
+        return titleMatch && companyMatch && locationMatch && (!newOnlyFilter || isNewJob(job));
       }),
-    [jobs, titleFilter, companyFilter, locationFilter],
+    [jobs, titleFilter, companyFilter, locationFilter, newOnlyFilter],
   );
 
   const locationOptions = useMemo(
@@ -115,6 +116,8 @@ export function useJobFilters(jobs: Job[]) {
     companyFilter,
     locationFilter,
     setLocationFilter,
+    newOnlyFilter,
+    setNewOnlyFilter,
     visibleCount,
     setVisibleCount,
     filteredJobs,

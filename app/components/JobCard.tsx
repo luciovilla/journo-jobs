@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-import { type Job, getJobDateLabel } from "../lib/jobs";
+import { type Job, getJobDateLabel, isNewJob } from "../lib/jobs";
 
 export const JobCard = ({ job }: { job: Job }) => {
   const dateLabel = getJobDateLabel(job);
@@ -28,12 +28,15 @@ export const JobCard = ({ job }: { job: Job }) => {
   return (
     <div className="grid gap-4 rounded-xl border border-(--line) bg-white p-5 md:grid-cols-[1fr_auto] md:items-center md:gap-8">
       <div>
-        <h2 className="text-xl font-semibold leading-tight">{job.title}</h2>
-        <p className="mt-1 text-sm font-medium text-(--muted)">{job.company}</p>
-        <p className="mt-2 text-sm text-(--muted)">{job.location}</p>
-        {dateLabel && (
-          <p className="mt-1 text-xs text-(--muted)">{dateLabel}</p>
+        {isNewJob(job) && (
+          <span className="mb-1 inline-block rounded-full bg-(--brand) px-2 py-0.5 text-xs font-semibold text-white">
+            New
+          </span>
         )}
+        <h2 className="text-lg font-semibold leading-tight">{job.title}</h2>
+        <p className="text-(--muted)">{job.company}</p>
+        <p className="mt-2 text-sm text-(--muted)">{job.location}</p>
+        {dateLabel && <p className="text-sm text-(--muted)">{dateLabel}</p>}
       </div>
 
       <div className="flex items-center gap-2 md:flex-col md:items-end">
@@ -91,7 +94,7 @@ export const JobCard = ({ job }: { job: Job }) => {
                 <circle cx="6" cy="12" r="3" />
                 <circle cx="18" cy="19" r="3" />
                 <line x1="8.59" x2="15.42" y1="13.51" y2="17.49" />
-              <line x1="15.41" x2="8.59" y1="6.51" y2="10.49" />
+                <line x1="15.41" x2="8.59" y1="6.51" y2="10.49" />
               </svg>
               Share
             </>

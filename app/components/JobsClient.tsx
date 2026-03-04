@@ -16,6 +16,8 @@ export const JobsClient = ({ initialJobs }: { initialJobs: Job[] }) => {
     companyFilter,
     locationFilter,
     setLocationFilter,
+    newOnlyFilter,
+    setNewOnlyFilter,
     visibleCount,
     setVisibleCount,
     filteredJobs,
@@ -59,12 +61,17 @@ export const JobsClient = ({ initialJobs }: { initialJobs: Job[] }) => {
             companyStats={companyStats}
             locationFilter={locationFilter}
             locationOptions={locationOptions}
+            newOnlyFilter={newOnlyFilter}
             onCompanyStatClick={(c) => {
               handleCompanyChange(c === companyFilter ? "" : c);
               filtersRef.current?.scrollIntoView({ behavior: "smooth" });
             }}
             onLocationChange={(v) => {
               setLocationFilter(v);
+              setVisibleCount(20);
+            }}
+            onNewOnlyChange={(v) => {
+              setNewOnlyFilter(v);
               setVisibleCount(20);
             }}
             onTitleChange={(v) => {

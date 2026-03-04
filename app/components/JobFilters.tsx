@@ -1,5 +1,7 @@
 "use client";
 
+import { NEW_JOB_DAYS } from "@/lib/jobs";
+
 type CompanyStat = {
   company: string;
   count: number;
@@ -11,9 +13,11 @@ type JobFiltersProps = {
   locationFilter: string;
   locationOptions: string[];
   companyStats: CompanyStat[];
+  newOnlyFilter: boolean;
   onTitleChange: (value: string) => void;
   onLocationChange: (value: string) => void;
   onCompanyStatClick: (company: string) => void;
+  onNewOnlyChange: (value: boolean) => void;
 };
 
 export const JobFilters = ({
@@ -22,9 +26,11 @@ export const JobFilters = ({
   locationFilter,
   locationOptions,
   companyStats,
+  newOnlyFilter,
   onTitleChange,
   onLocationChange,
   onCompanyStatClick,
+  onNewOnlyChange,
 }: JobFiltersProps) => {
   return (
     <section className="mx-auto max-w-4xl rounded-3xl border border-(--line) bg-white p-5 md:p-6">
@@ -76,6 +82,16 @@ export const JobFilters = ({
             ))}
           </select>
         </label>
+      </div>
+
+      <div className="mt-3">
+        <button
+          className={`rounded-full cursor-pointer px-3 py-2 text-xs font-semibold transition-colors ${newOnlyFilter ? "bg-(--brand) text-white" : "border border-(--line) text-(--muted) hover:border-(--brand) hover:text-(--brand)"}`}
+          onClick={() => onNewOnlyChange(!newOnlyFilter)}
+          type="button"
+        >
+          New only (last {NEW_JOB_DAYS} days)
+        </button>
       </div>
     </section>
   );
